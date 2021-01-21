@@ -1,5 +1,3 @@
-# 10
-# 10 -4 3 1 5 6 -35 12 21 -1
 import sys
 
 cnt = int(input())
@@ -12,7 +10,6 @@ for i in range(1,cnt):
     else:
         for_d.append(lst[i])
 
-
 rev_lst = lst[::-1]
 rev_d = [rev_lst[0]]
 
@@ -23,11 +20,10 @@ for i in range(1,cnt):
         rev_d.append(rev_lst[i])
 rev_d = rev_d[::-1]
 
-res = 0
-for i in range(cnt-2):
-    temp = max(for_d[i] + rev_d[i+2], for_d[i], rev_d[i])
+res = -1001
+for i in range(1,cnt-1):
+    temp = max(for_d[i-1] + rev_d[i+1], for_d[i])
     if res < temp:
         res = temp
 
-
-print(max(res,for_d[-1],for_d[-2],rev_d[-1],rev_d[-2]))
+print(max(for_d[0],for_d[-1],res))
