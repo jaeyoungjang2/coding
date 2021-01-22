@@ -12,8 +12,6 @@ length = sum(lst)
 target = length - 100
 except_1, except_2 = find_guy(lst,target)
 
-print('hi')
-
 for i in lst:
     if i == lst[except_1] or i == lst[except_2]:
         continue
