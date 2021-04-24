@@ -1,35 +1,33 @@
-import sys
+e, v = list(map(int, input().split()))
+# lstGraph 선언
+lstGraph = [[] for i in range(e)]
+visit = [False for i in range(e)]
+res = False
 
-n, m = map(int, sys.stdin.readline().split())
-graph = [[] for i in range(n+1)]
-visit = [False for i in range(n + 1)]
+# edge, vertex의 수를 받음
+for i in range(v):
+    a, b = list(map(int, input().split()))
+    lstGraph[a].append(b)
+    lstGraph[b].append(a)
 
-visit[0] = True
+# 재귀함수 선언
 
-for i in range(m):
-    a, b = map(int, sys.stdin.readline().split())
-    graph[a+1].append(b+1)
-    graph[b+1].append(a+1)
 
-def dfs(graph, i, myDepth):
-    global ans
-    visit[i] = True
-    
-    if myDepth >= 4:
-        ans = True
+def go(target, depth, lst):
+    global res
+    if depth >= 4:
+        res = True
         return
-    for j in graph[i]:
-        if visit[j] == False:
-            dfs(graph, j, (myDepth+1))
-            visit[j] = False
-        
-        
+    for i in lstGraph[target]:
+        if visit[i] == False:
+            visit[i] = True
+            go(i, depth+1, lst)
+            visit[i] = False
 
-ans = False
-for i in range(1, n+1, 1):
-    dfs(graph, i, 0)
+
+for i in range(e):
+    visit[i] = True
+    go(i, 0, visit)
     visit[i] = False
-    if ans:
-        break
 
-print(1 if ans else 0)
+print(1 if res else 0)
