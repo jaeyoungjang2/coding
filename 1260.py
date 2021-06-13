@@ -1,6 +1,6 @@
 import sys
 N, M, V = list(map(int, sys.stdin.readline().split()))
-
+# asd
 
 lst = [[] for _ in range(N+1)]
 stackLst = [V]
