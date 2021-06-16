@@ -1,28 +1,26 @@
+import sys
+from collections import Counter
 n, m = map(int, input().split())
-lst = list(map(int, input().split()))
-lst.sort()
+temp = list(map(int, input().split()))
+temp = list(Counter(temp).items())
+temp.sort()
+n = len(temp)
+num, cnt = map(list, zip(*temp))
+a = [0]*m
+print(cnt)
+print(n)
 
-dic = {}
-resdic = {}
-res = [0]*m
-for i in lst:
-    dic[i] = True
 
-
-def cal(index, target):
+def go(index, n, m):
     if index == m:
-        if tuple(res) not in resdic:
-            for i in res:
-                print(i, end=' ')
-            print()
-            resdic[tuple(res)] = 0
+        sys.stdout.write(' '.join(map(str, a))+'\n')
         return
-    if target >= n:
-        return
-    i = lst[target]
-    res[index] = i
-    cal(index+1, target+1)
-    cal(index, target+1)
+    for i in range(n):
+        if cnt[i] > 0:
+            cnt[i] -= 1
+            a[index] = num[i]
+            go(index+1, n, m)
+            cnt[i] += 1
 
 
-cal(0, 0)
+go(0, n, m)
